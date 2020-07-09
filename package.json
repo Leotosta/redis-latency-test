@@ -1,0 +1,15 @@
+{
+  "name": "redis-latency",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon ./src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "ioredis": "^4.17.3",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.4"
+  }
+}
