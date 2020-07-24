@@ -6,9 +6,9 @@ const app = express()
 
 //redis config
 
-const client = redis.createClient({
+const client = new redis({
     host: 'localhost',
-    port: parseInt( 3453 ,10)
+    port: parseInt( 6379 ,10)
 })
 
 async function getRepo(req, res) {
@@ -19,9 +19,10 @@ async function getRepo(req, res) {
         
         const data = await response.json()
 
-        // client.setex(username, 3600, data.public_repos)
 
-        return res.json(`${data}`)
+        client.set(username, data.public_repos)
+
+        return res.json({data})
 
     }catch(e){
         console.log(e)
@@ -43,7 +44,7 @@ function cache(req, res, next){
 }
 
 
-app.get('/repos/:username',  cache, getRepo )
+app.get('/repos/:username',         cache, getRepo )
 
 const port = process.env.PORT || 4000
 app.listen(port, () => {
